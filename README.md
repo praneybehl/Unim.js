@@ -2,7 +2,7 @@
 The Fast, Free, Creative, Smooth, Powerful, High performance, Easy Animation Engine with Many more features (COMING SOON)
 
 # WARNING
-Some peoples say, it's ripp-off of <a href="http://greensock.com/">GreenSock</a>, but i maked this product, but syntax is inspired by <a href="http://greensock.com/">GreenSock</a>. Please add your review with making issue or add one off issue for poll. Thanks!
+Some peoples say, it's ripp-off of <a href="http://greensock.com/">GreenSock</a>, but i maked this product, but syntax is inspired by <a href="http://greensock.com/">GreenSock</a>. Please vote to poll with <a href="https://github.com/dalisoft/Unim.js/issues/1">Issue #1</a>. Your poll/vote is important for me
 
 
 # Initialize Date
