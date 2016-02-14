@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+      <title>Tween.js - SVG Support</title>
+	  <style>
+	 #template {
+  stroke-width: 5px;
+  stroke: #444;
+}
+#template, #path {
+  fill: none;
+}
+#path {
+  stroke: #88CE02;
+  stroke-width: 20px;
+  stroke-dashoffset: 0px;
+  stroke-dasharray: 622.874389648438px, 622.874389648438px;
+}
+#love {
+ font-size:44px;
+  line-height:50px;
+  color:#000;
+  font-family: 'Asap', Arial, Helvetica, sans-serif;
+}
+.evryword {
+font-family: Arial;
+font-size: xx-large;
+transform-style: preserve-3d;
+-webkit-filter : hue-rotate(0deg);
+}
+#blur {
+	background-color: rgba(0, 0, 0, .5);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+}
+#blur:target {
+	display: block;
+}
+	  </style>
+   </head>
+   <body>
+
+    <br>
+	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="516.3px" height="190px" viewBox="0 0 516.3 190" style="enable-background:new 0 0 516.3 211.99;" xml:space="preserve">
+  <path id="template" d="M9.13,99.99c0,0,18.53-41.58,49.91-65.11c30-22.5,65.81-24.88,77.39-24.88c33.87,0,57.55,11.71,77.05,28.47c23.09,19.85,40.33,46.79,61.71,69.77c24.09,25.89,53.44,46.75,102.37,46.75c22.23,0,40.62-2.83,55.84-7.43c27.97-8.45,44.21-22.88,54.78-36.7c14.35-18.75,16.43-36.37,16.43-36.37"></path>
+	<path id="path" d="M9.13,99.99c0,0,18.53-41.58,49.91-65.11c30-22.5,65.81-24.88,77.39-24.88c33.87,0,57.55,11.71,77.05,28.47c23.09,19.85,40.33,46.79,61.71,69.77c24.09,25.89,53.44,46.75,102.37,46.75c22.23,0,40.62-2.83,55.84-7.43c27.97-8.45,44.21-22.88,54.78-36.7c14.35-18.75,16.43-36.37,16.43-36.37" style="visibility: visible;"></path>
+	</svg>
+
+<div id="t" style="perspective:800px;width:500px;transform-origin: center">Unim.js is made by @dalisoft</div>
+<div id="t2" style="perspective:800px;width:500px;transform-origin: center;margin-top:50px;">Unim.js is made by @dalisoft</div>
+<div id="blur"></div>
+      <script src="../src/Unim.js"></script>
+      <script>
+	  Unim.defineProperty('yellow', function (parse) {
+	  return function (value) {
+	  var end = value * 255, start = 136, calc = start + ( end - start ) * value;
+	  parse.stroke = 'rgb(' + [ calc, 206, 2 ].join(", ") + ')';
+	  return value;
+	  }
+	  });
+	  Unim.defineProperty('opaque', function (parse) {
+	  if (parse.opacity) return false;
+	  return function (value) {
+	  parse.opacity = value;
+	  return value;
+	  }
+	  });
+	  Unim.defineProperty('fadeIn', function (parse) {
+	  return function (value) {
+	  parse.opacity = value;
+	  return value;
+	  }
+	  });
+	var path = document.getElementById('path');
+	var t = new EvryWord('#t', 'chars');
+	var t2 = new EvryWord('#t2', 'chars');
+	t.forEach(function(chars){
+	cache(chars, {transformPerspective : "32rem",scale:1,y:'0px',rotateX:"0deg"}, false);
+	});
+	t2.forEach(function(chars){
+	chars.style.transform = 'translateY(-30px)';
+	chars.style.opacity = 0.5;
+	cache(chars, {transformPerspective : "32rem"}, false);
+	});
+	var tl = new Sequence(), tl2 = new Sequence();
+	tl2.fromTo(t2, {
+	y: '0px',
+	scale: 1,
+	opacity: 0.5
+	}, {
+	y: '30px',
+	scale: [0.5, 2, 1],
+	opacity: 1
+	}, 500, 55, {
+	
+	});
+	tl2.start();
+	/*var tm = new TimelineMax();
+	tm.staggerTo(t, 1.5, {
+		color : '#0cf',
+		y : '50px',
+		rotationX : '45deg',
+		scale : 0.5,
+		repeat : -1,
+		yoyo : true,
+		ease : "Elastic.easeInOut"
+	}, 0.025);*/
+	tl.to(t, {
+		color : '#0cf',
+		y : '50px',
+		rotateX : '45deg',
+		scale : 0.5,
+		hueRotate : '360deg',
+		transformPerspective : "32rem"
+	}, 1500, 25, {
+		setUnit : {
+			//rotateX : "deg"
+		},
+		easing : {
+			color : 'QuadInOut',
+			y : 'ElasticInOut',
+			rotateX : 'ElasticInOut',
+			scale : 'BackInOut'
+		},
+		repeat : Infinity,
+		yoyo : true,
+		onUpdate : function () {
+		
+		}
+	});
+	tl.start();
+	var tween1 = new Unim(path, {
+			svgDraw : '50% 50%',
+			yellow : 0
+		}).to({
+			svgDraw : '0% 100%',
+			yellow : 1
+		}, 5000).repeat(Infinity).yoyo(true).easing({
+			svgDraw : 'ExpoInOut'
+		}).start();
+      </script>
+   </body>
+</html>
